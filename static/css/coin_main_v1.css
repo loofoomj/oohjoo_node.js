@@ -1,0 +1,698 @@
+/*
+ * Nanum Gothic (Korean) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.ttf) format('truetype');
+}
+
+* {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input, textarea {
+	-webkit-touch-callout: initial;
+	-webkit-user-select: initial;
+	-moz-user-select: initial;
+}
+
+html, body {
+	height: 100%;
+	font-family: 'NanumGothic','Roboto Condensed', sans-serif;
+}
+
+body {
+	-webkit-transform: translate3d(0, 0, 0);
+	margin: 0;
+	padding: 0;
+}
+
+.disabled-btn{
+  pointer-events: none;
+}
+
+.main-container {
+  height: 100%;
+	background-color: #eeeeee;
+}
+
+.container{
+	background-color: rgba(255, 182, 193,.4);
+  height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 15px;
+}
+
+.container.mainback{
+  background-color: #ffffff;
+  height: 100%;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+}
+
+
+@media ( min-width : 768px) {
+	.container {
+		width: 500px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.container {
+		width: 500px;
+	}
+}
+
+@media ( min-width : 1200px) {
+	.container {
+		width: 500px;
+	}
+}
+
+
+
+.login-content{
+	color:#000;
+}
+
+.login-title{
+	text-align: center;
+	margin-bottom: 40px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+input::-webkit-input-placeholder { color: #FFB6C1; opacity:0.5;}
+
+.login-input-box{
+	background-color: transparent;
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #cccccc;
+	padding: 5px;
+  font-size: 15px;
+}
+.login-input-box:focus{
+	outline-width: 0px;
+}
+
+.login-btn{
+	text-align: center;
+	color: #ffffff;
+	width: 70px;
+	font-size: 15px;
+	margin: 0 auto;
+	margin-top: 40px;
+	background-color: #FFB6C1;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.login-submit-btn{
+	background-color: transparent;
+	border: none;
+	width: 100%;
+	padding: 7px;
+}
+
+button:focus { outline: none; }
+input:focus { outline: none; }
+textarea:focus { outline: none; }
+
+.upper-title-bar{
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	margin-left: -15px;
+	margin-right: -15px;
+	height: 35px;
+	padding: 5px;
+	background-color: #ffffff;
+  position:fixed;
+  width:100%;
+  z-index: 1;
+}
+
+@media ( min-width : 768px) {
+	.upper-title-bar {
+		width: 485px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.upper-title-bar {
+		width: 485px;
+	}
+}
+
+@media ( min-width : 1200px) {
+	.upper-title-bar {
+		width: 485px;
+	}
+}
+
+.btn-box{
+	-webkit-flex: 1;
+          flex: 1;
+  cursor: pointer;
+}
+.main-title{
+	-webkit-flex: 4;
+          flex: 4;
+	text-align: center;
+}
+
+.main-title>img{
+	width: 80px;
+	height: 90%;
+}
+
+.upper-btn{
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	color: #FF5E88;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.contain-box-div{
+  background-color: #ffffff;
+	border-radius: 10px;
+  padding: 10px;
+}
+
+.user-info-box{
+  margin-top: 10px;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.user-info-name{
+	font-size: 30px;
+	display: block;
+	padding-left: 20px;
+	padding-right: 15px;
+	border-bottom: 1px solid #FFB6C1;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+}
+
+.user-info-stock{
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	-webkit-justify-content: center;
+	font-size: 20px;
+}
+
+.user-info-stock td{
+	text-align: center;
+	width:25%;
+  font-size: 13px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.user-stamp-coin{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+}
+
+.time-check-box{
+  margin-top: 45px;
+  padding-bottom: 5px;
+}
+
+.write-note-box{
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+
+.write-text-area{
+  resize: none;
+  padding: 10px;
+  overflow-y: scroll;
+  -webkit-flex: initial;
+          flex: initial;
+  width: 800px;
+  min-width: 100px;
+  border: 1px solid #FFB6C1;
+}
+
+.write-text-div{
+  display: flex;
+  display: -webkit-flex;
+  height: 70px;
+  padding-left: 10px;
+}
+
+.write-note-btn{
+  height: 100%;
+  background-color: #FFB6C1;
+  color:#ffffff;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.write-text-area::-webkit-input-placeholder {
+    font-size: 13px;
+}
+
+.list-note-div{
+  margin-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.user-note-name{
+  font-size: 15px;
+  font-weight: bold;
+}
+.user-note-date{
+  font-size: 10px;
+  color: #FFB6C1;
+}
+.user-note-content{
+  padding-top: 5px;
+  width: 100%;
+  word-break: break-all;
+}
+
+.user-note-name-box{
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
+.delete-btn{
+  height: initial;
+  text-align: right;
+}
+
+.modal-content{
+  border-radius: 0px;
+}
+
+#adminModal .modal-header, #helpModal .modal-header, #stampCoinModal .modal-header, #coinRouletteModal .modal-header, #coinGiftModal .modal-header{
+  border-bottom:0px;
+  padding:10px;
+  background-color: #FF5E88;
+  color:#ffffff;
+}
+#adminModal .modal-body, #helpModal .modal-body, #stampCoinModal .modal-body, #coinRouletteModal .modal-body, #coinGiftModal .modal-body {
+  background-color: rgba(255, 182, 193,.4);
+  padding:10px;
+}
+#adminModal .modal-footer, #helpModal .modal-footer, #stampCoinModal .modal-footer, #coinRouletteModal .modal-footer, #coinGiftModal .modal-footer {
+  border-top:0px;
+  padding:0px;
+}
+
+.admin-modal-div{
+  margin-bottom: 10px;
+}
+
+.homework-box-title{
+  color: #FF5E88;
+  padding-left: 10px;
+}
+
+.homework-box-div{
+  margin-top: 10px;
+  padding-bottom: 15px;
+}
+
+.homework-submit-btn{
+  background-color: #FFB6C1;
+	border-radius: 10px;
+	border: none;
+  width: 80px;
+	color: #ffffff;
+	padding: 7px;
+}
+
+
+/*Calendar*/
+.left-align {
+  text-align: left;
+}
+.right-align {
+  text-align: right;
+}
+.cal1 {
+  max-width: 600px;
+  font-family: 'Droid Sans Mono';
+  font-size: 14px;
+}
+.cal1 .clndr .clndr-controls {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  margin-bottom: 10px;
+}
+.cal1 .clndr .clndr-controls .month {
+  float: left;
+  width: 33%;
+  text-align: center;
+}
+.cal1 .clndr .clndr-controls .clndr-control-button {
+  float: left;
+  width: 33%;
+}
+.cal1 .clndr .clndr-controls .clndr-control-button.rightalign {
+  text-align: right;
+  width: 34%;
+}
+.cal1 .clndr .clndr-controls .clndr-control-button .clndr-next-button {
+  cursor: pointer;
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
+}
+
+.cal1 .clndr .clndr-controls .clndr-control-button .clndr-next-button.inactive {
+  opacity: 0.5;
+}
+
+.cal1 .clndr .clndr-controls .clndr-control-button .clndr-previous-button {
+  cursor: pointer;
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
+}
+
+.cal1 .clndr .clndr-controls .clndr-control-button .clndr-previous-button.inactive {
+  opacity: 0.5;
+}
+
+.cal1 .clndr .clndr-table {
+  table-layout: fixed;
+  width: 100%;
+}
+.cal1 .clndr .clndr-table .header-days {
+  height: 30px;
+  font-size: 10px;
+  background: #FF5E88;
+}
+.cal1 .clndr .clndr-table .header-days .header-day {
+  vertical-align: middle;
+  text-align: center;
+  color: #fff;
+}
+.cal1 .clndr .clndr-table .header-days .header-day:last-child {
+
+}
+.cal1 .clndr .clndr-table tr {
+  height: 60px;
+}
+.cal1 .clndr .clndr-table tr td {
+  vertical-align: top;
+}
+.cal1 .clndr .clndr-table tr .day {
+  width: 100%;
+  height: inherit;
+}
+
+.cal1 .clndr .clndr-table tr .day.today,
+.cal1 .clndr .clndr-table tr .day.my-today {
+  background: #9AD6E3;
+}
+
+.cal1 .clndr .clndr-table tr .day.today.event,
+.cal1 .clndr .clndr-table tr .day.my-today.event {
+  background: #FFB6C1;
+  color: #ffffff;
+}
+.cal1 .clndr .clndr-table tr .day.event,
+.cal1 .clndr .clndr-table tr .day.my-event {
+  background: #B4E09F;
+}
+
+.cal1 .clndr .clndr-table tr .day.inactive,
+.cal1 .clndr .clndr-table tr .day.my-inactive {
+  background: #ddd;
+}
+.cal1 .clndr .clndr-table tr .day:last-child {
+
+}
+.cal1 .clndr .clndr-table tr .day .day-contents {
+  box-sizing: border-box;
+  padding: 5px;
+  font-size: 10px;
+  text-align: left;
+}
+.cal1 .clndr .clndr-table tr .empty,
+.cal1 .clndr .clndr-table tr .adjacent-month,
+.cal1 .clndr .clndr-table tr .my-empty,
+.cal1 .clndr .clndr-table tr .my-adjacent-month {
+  width: 100%;
+  height: inherit;
+  background: #eee;
+}
+
+.cal1 .clndr .clndr-table tr .empty:last-child,
+.cal1 .clndr .clndr-table tr .adjacent-month:last-child,
+.cal1 .clndr .clndr-table tr .my-empty:last-child,
+.cal1 .clndr .clndr-table tr .my-adjacent-month:last-child {
+
+}
+.cal1 .clndr .clndr-table tr:last-child .day,
+.cal1 .clndr .clndr-table tr:last-child .my-day {
+
+}
+.cal1 .clndr .clndr-table tr:last-child .empty,
+.cal1 .clndr .clndr-table tr:last-child .my-empty {
+
+}
+
+.clndr-next-button,
+.clndr-previous-button,
+.clndr-next-year-button,
+.clndr-previous-year-button {
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
+
+}
+.clndr-next-button.inactive,
+.clndr-previous-button.inactive,
+.clndr-next-year-button.inactive,
+.clndr-previous-year-button.inactive {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.clndr-previous-button>i{
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.clndr-previous-button>i, .clndr-next-button>i{
+  color: #FF5E88;
+}
+
+.stamp-coin-table{
+  font-size: 11px;
+  text-align: center;
+  width: 100%;
+}
+.stamp-coin-table tr:nth-child(1) {
+  border-bottom: 1px solid #FFB6C1;
+}
+.stamp-coin-table tr td {
+  height: 25px;
+}
+
+.delete-btn-box{
+  display: flex;
+  display: -webkit-flex;
+}
+.complete-btn{
+  height: initial;
+}
+
+.homework-change-btn{
+	color: #ffffff;
+	background-color: #FFB6C1;
+	cursor: pointer;
+	border: none;
+	width: 100%;
+}
+.stamp-minus-btn{
+  color: #ffffff;
+	background-color: #FFB6C1;
+	cursor: pointer;
+	border: none;
+	width: 100%;
+}
+
+.coin-main-banner{
+  display: flex;
+  display: -webkit-flex;
+  background-color: #B18DE8;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: 10px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  cursor: pointer;
+}
+.coin-main-icon-div{
+  width: 65px;
+  padding: 10px;
+  margin-right: 10px;
+  margin-left: -10px;
+}
+.coin-main-text-div{
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.coin-store-top-div{
+  display: flex;
+  display: -webkit-flex;
+  width: 100%;
+  background-color: #FF5E88;
+  color:#ffffff;
+  align-items: center;
+  -webkit-align-items: center;
+  padding: 5px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.stamp-change-div, .coin-change-div{
+  display: flex;
+  display: -webkit-flex;
+  background-color: #ffffff;
+  margin-top: 10px;
+  padding: 10px;
+}
+.stamp-change-div{
+  cursor: pointer;
+}
+
+.stamp-change-text-box, .coin-change-text-box{
+  font-size: 22px;
+  flex: 4;
+  -webkit-flex: 4;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+.stamp-change-number-box, .coin-change-number-box{
+  flex: 1;
+  -webkit-flex: 1;
+  font-size: 25px;
+  text-align: center;
+  background-color: #FF5E88;
+  color: #ffffff;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+}
+
+.roulette-contain-div{
+  margin-top: 20px;
+  padding:15px;
+  text-align: center;
+}
+.roulette-btn-div{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  color: #FF5E88;
+  margin-bottom:20px;
+}
+.roulette-btn{
+  background-color: #ffffff;
+  padding: 10px;
+  font-size: 15px;
+  margin-right: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.roulette-btn:nth-child(3){
+  margin-right: 0px;
+}
+
+.coin_roulette_box_div{
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+}
+.power_controls{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,395 @@
+<html>
+
+<head>
+    <% include ./common/head.ejs %>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="container">
+            <div class="upper-title-bar">
+                <div class="logout-btn-box btn-box">
+                    <input type="button" class="logout-btn upper-btn" value="로그아웃"/>
+                </div>
+                <div class="main-title">
+                    <img src="/img/logo.png" style="cursor:pointer;">
+                </div>
+                <div class="admin-btn-box btn-box">
+                    <input type="button" class="admin-btn upper-btn" data-toggle="modal" data-target="#adminModal"
+                           data-userid="<%=user.user_id%>" data-stamp="<%=user.stamp%>" data-coin="<%=user.coin%>"
+                           <% if(user.user_id=='admin') { %>
+                           value="관리자"
+                          <%} else { %>
+                          value="과제"
+                          <% } %>
+                          />
+                </div>
+            </div>
+            <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+            <div class="time-check-box contain-box-div">
+                <div style="text-align: center;font-weight: bold;">
+                    <span>2018 D-Day !</span>
+                </div>
+                <div id="countdown2" class="ClassyCountdownDemo"></div>
+            </div>
+            <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+            <div class="coin-main-banner" OnClick="location.href='/coin_main'">
+              <div class="coin-main-icon-div">
+                  <img src="/img/coin_main_icon.png" style="width:100%;">
+              </div>
+              <div class="coin-main-text-div">
+                <span id="btn-blink" style="color:#FFF600;font-weight: 400;">Coin 상점</span> 정식 오픈!<br />
+                <script>
+									(function blink() {
+
+										    	$('#btn-blink').fadeOut(1500).fadeIn(1500, blink);
+
+										})();
+										</script>
+              </div>
+            </div>
+            <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+            <div class="user-info-box contain-box-div">
+                <div style="text-align: right;">
+                  <i class="material-icons" style="font-size: 20px;color: #999999;cursor:pointer;" data-toggle="modal" data-target="#helpModal">&#xE8FD;</i>
+                </div>
+                <div class="user-info-name" style="margin-top: -20px;">
+                    <span><%=user.user_id%></span>
+                </div>
+                <div class="user-info-stock">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td data-toggle="modal" data-target="#stampCoinModal">
+                                <span style="cursor: pointer;">보유 Stamp</span>
+                            </td>
+                            <td data-toggle="modal" data-target="#stampCoinModal">
+                                <span style="cursor: pointer;">보유 Coin</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-stamp-coin" data-toggle="modal" data-target="#stampCoinModal">
+                                    <i class="material-icons" style="margin-right: 5px;color: #FF5E88;">&#xE1AD;</i>
+                                    <span style="font-size: 20px;cursor: pointer;"><%=user.stamp%></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-stamp-coin" data-toggle="modal" data-target="#stampCoinModal">
+                                    <i class="material-icons" style="margin-right: 5px;color: #FF5E88;">&#xE263;</i>
+                                    <span style="font-size: 20px;cursor: pointer;"><%=user.coin%></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+            <% if(home_check_show) { %>
+              <% if(!user.isHomeCheck) { %>
+              <div class="homework-div">
+                <div style="width:100%;height:1px;background-color:#FF5E88;margin-top: 10px;"></div>
+                <div class="homework-box-div contain-box-div">
+                  <div style="text-align: center;font-weight: bold;margin-bottom: 15px;">
+                      <span>오늘의 과제</span>
+                  </div>
+                  <div style="margin-left: 25px;margin-right: 25px;text-align: center;">
+                    <%=user.homework%>
+
+                  </div>
+                </div>
+                <div class="homework-box-div contain-box-div">
+                  <div style="text-align: center;font-weight: bold;margin-bottom: 15px;">
+                      <span>과제 제출하기</span>
+                  </div>
+                  <div>
+                    <div style="text-align:center;margin-bottom:10px;">
+                      <img id="preview" src="" width="200px" height="200px" alt="이미지 미리보기">
+                    </div>
+                    <div style="width: 200px;margin: 0 auto;">
+                      <form action="/upload" method="post" enctype="multipart/form-data" style="text-align: center;">
+                        <input type="file" id="getfile" style="width:100%;margin-bottom: 15px;" name="userfile">
+                        <input type="submit" class="homework-submit-btn" value="과제 제출!"/>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } else { %>
+                <div class="homework-div">
+                  <div style="width:100%;height:1px;background-color:#FF5E88;margin-top: 10px;"></div>
+                  <div class="homework-box-div contain-box-div">
+                    <div style="text-align: center;font-weight: bold;margin-bottom: 15px;">
+                        <span>오늘의 과제</span>
+                    </div>
+                    <div style="margin-left: 25px;margin-right: 25px;text-align: center;">
+                      <span style="color: #FF5E88;font-size: 20px;font-weight: bold;">과제 제출 완료!</span>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            <% } %>
+
+
+            <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+            <div style="width:100%;height:1px;background-color:#FF5E88;margin-top: 10px;"></div>
+
+            <div class="write-note-box contain-box-div">
+                <div style="text-align: left;font-weight: bold;padding: 5px;padding-left: 10px;">
+                    <span>오늘은 모해?</span>
+                </div>
+                <div class="write-text-div">
+                    <textarea name="write-text" class="write-text-area" id="contentHelp" placeholder="최대 150자 까지 입력 가능!"></textarea>
+                    <DIV class="remaining" style="display:none;">
+                        <SPAN class="count">150</SPAN>
+                    </DIV>
+                    <div class="write-note-btn" data-userid="<%=user.user_id%>">
+                        <i class="material-icons">&#xE22B;</i>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:100%;height:1px;background-color:#FF5E88;margin-top: 10px;"></div>
+            <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+            <div class="list-note-box">
+            </div>
+            <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+        </div>
+    </div>
+    <% include ./modal.ejs %>
+    <% include ./common/footer.ejs %>
+
+<script>
+    // 중복 입력 방지
+    var doubleSubmitFlag = false;
+
+    function doubleSubmitCheck() {
+        if (doubleSubmitFlag) {
+            return doubleSubmitFlag;
+        } else {
+            doubleSubmitFlag = true;
+            return false;
+        }
+    }
+
+    $('.logout-btn').click(function() {
+        alert('부뉴 잘가뮤~');
+        location.href = '/auth/logout';
+    });
+
+    var now_time = new Date().getTime() / 1000
+    $('#countdown2').ClassyCountdown({
+        end: '1510821600',
+        now: now_time,
+        labels: true,
+        style: {
+            element: "",
+            textResponsive: .5,
+            days: {
+                gauge: {
+                    thickness: .01,
+                    bgColor: "rgba(0,0,0,0.05)",
+                    fgColor: "#1abc9c"
+                },
+                textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+            },
+            hours: {
+                gauge: {
+                    thickness: .01,
+                    bgColor: "rgba(0,0,0,0.05)",
+                    fgColor: "#2980b9"
+                },
+                textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+            },
+            minutes: {
+                gauge: {
+                    thickness: .01,
+                    bgColor: "rgba(0,0,0,0.05)",
+                    fgColor: "#8e44ad"
+                },
+                textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+            },
+            seconds: {
+                gauge: {
+                    thickness: .01,
+                    bgColor: "rgba(0,0,0,0.05)",
+                    fgColor: "#f39c12"
+                },
+                textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+            }
+
+        },
+        onEndCallback: function() {
+            console.log("Time out!");
+        }
+    });
+
+    $(function() {
+        $('.remaining').each(function() {
+            // count 정보 및 count 정보와 관련된 textarea/input 요소를 찾아내서 변수에 저장한다.
+            var $count = $('.count', this);
+            var $input = $(this).prev();
+            // .text()가 문자열을 반환하기에 이 문자를 숫자로 만들기 위해 1을 곱한다.
+            var maximumCount = $count.text() * 1;
+            // update 함수는 keyup, paste, input 이벤트에서 호출한다.
+            var update = function() {
+                var before = $count.text() * 1;
+                var now = maximumCount - $input.val().length;
+                // 사용자가 입력한 값이 제한 값을 초과하는지를 검사한다.
+                if (now < 0) {
+                    var str = $input.val();
+                    alert('150자 다썼당!');
+                    $input.val(str.substr(0, maximumCount));
+                    now = 0;
+                }
+                // 필요한 경우 DOM을 수정한다.
+                if (before != now) {
+                    $count.text(now);
+                }
+            };
+            // input, keyup, paste 이벤트와 update 함수를 바인드한다
+            $input.bind('input keyup paste', function() {
+                setTimeout(update, 0)
+            });
+            update();
+        });
+    });
+
+    $('.write-note-btn').click(function() {
+        $(this).addClass('disabled-btn');
+        var text_area = $('.write-text-area').val();
+        if (text_area == "") {
+            alert('내용을 입력해야대!');
+            $('.write-text-area').focus();
+        } else {
+            var btn = $(this);
+            var content = $('.write-text-area').val().replace(/\n/g, "<br>");
+            var user_id = $(this).data("userid");
+            var reg_date = getTimeStamp();
+            var timeOutId = 0;
+            $.ajax({
+                url: '/write_note',
+                type: 'POST',
+                data: {
+                    user_id: user_id,
+                    content: content,
+                    reg_date: reg_date
+                },
+                success: function(view) {
+                    $(".list-note-box").prepend(view);
+                    $('.write-text-area').val("");
+                    $(this).removeClass('disabled-btn');
+                }
+            });
+        }
+        $(this).removeClass('disabled-btn');
+    });
+
+    function getTimeStamp() {
+        var d = new Date();
+        var s =
+            leadingZeros(d.getFullYear(), 4) + '-' +
+            leadingZeros(d.getMonth() + 1, 2) + '-' +
+            leadingZeros(d.getDate(), 2) + ' ' +
+
+            leadingZeros(d.getHours(), 2) + ':' +
+            leadingZeros(d.getMinutes(), 2) + ':' +
+            leadingZeros(d.getSeconds(), 2);
+
+        return s;
+    }
+
+    function leadingZeros(n, digits) {
+        var zero = '';
+        n = n.toString();
+
+        if (n.length < digits) {
+            for (i = 0; i < digits - n.length; i++)
+                zero += '0';
+        }
+        return zero + n;
+    }
+
+
+    $.ajax({
+        url: '/view_note',
+        type: 'POST',
+        success: function(view) {
+            $(".list-note-box").html(view);
+
+        }
+    });
+
+    $('.main-title').click(function() {
+        location.href = '/main';
+    });
+
+    $("#adminModal").on('show.bs.modal', function (event) {
+      var btn = $(event.relatedTarget);
+      var modal = $(this);
+      var user_id = btn.data('userid');
+      if(user_id=='admin'){
+        modal.find('.modal-header span').html('관리자 페이지');
+      } else {
+        modal.find('.modal-header span').html('과제 상세 페이지');
+      }
+      var date = new Date();
+      var month = date.getMonth()+1;
+      $.ajax({
+          url: '/view_homework',
+          type: 'POST',
+          data: {user_id:user_id},
+          success: function(view) {
+              modal.find(".modal-body").html(view);
+              $.ajax({
+                  url: '/view_homework_box',
+                  type: 'POST',
+                  data: {month:month},
+                  success: function(view) {
+                      modal.find(".today-mission-box").html(view);
+
+
+                  }
+              });
+
+          }
+      });
+    });
+
+
+    $("#stampCoinModal").on('show.bs.modal', function (event) {
+      var btn = $(event.relatedTarget);
+      var modal = $(this);
+      $.ajax({
+          url: '/stamp_coin',
+          type: 'POST',
+          success: function(view) {
+              modal.find(".modal-body").html(view);
+
+          }
+      });
+    });
+
+
+// image data input
+var file = document.querySelector('#getfile');
+
+file.onchange = function () {
+    var fileList = file.files ;
+
+    // 읽기
+    var reader = new FileReader();
+    reader.readAsDataURL(fileList [0]);
+
+    //로드 한 후
+    reader.onload = function  () {
+        document.querySelector('#preview').src = reader.result ;
+    };
+};
+
+
+
+
+
+</script>
+</body>
+</html>
