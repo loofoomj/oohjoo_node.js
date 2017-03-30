@@ -39,6 +39,8 @@
 
 
 <script>
+$('body').find('.scroll-idx').data('notelen',<%=notes.length%>);
+console.log(<%=notes.length%>);
 
 $('.delete-btn.note_box_btn').click(function(){
   var btn = $(this);

@@ -6,6 +6,7 @@
 
 <body>
     <div class="main-container">
+      <div class="scroll-idx" style="display:none;" data-idx="0" data-notelen="0"></div>
         <div class="container">
             <div class="upper-title-bar">
                 <div class="logout-btn-box btn-box">
@@ -159,6 +160,7 @@
     <% include ./common/footer.ejs %>
 
 <script>
+
     // 중복 입력 방지
     var doubleSubmitFlag = false;
 
@@ -310,9 +312,39 @@
     }
 
 
+      $(window).data('ajaxready',true).scroll(function(e) {
+        if ($(window).data('ajaxready') == false) return;
+
+        if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+            $(window).data('ajaxready', false);
+            idx = idx + 5;
+            $('.scroll-idx').data('idx',idx);
+            if($('.scroll-idx').data('notelen')!=0){
+              $.ajax({
+                url: '/view_note',
+                type: 'POST',
+                data: {idx:idx},
+                success: function(view) {
+                  $(".list-note-box").append(view);
+                  if($('.scroll-idx').data('notelen')!=5) {
+                    $('body').find('.scroll-idx').data('notelen',0);
+                  }
+                  $(window).data('ajaxready', true);
+                }
+              });
+            }
+        }
+     });
+
+
+
+    var idx = $('.scroll-idx').data('idx');
+    console.log(idx);
+
     $.ajax({
         url: '/view_note',
         type: 'POST',
+        data: {idx:idx},
         success: function(view) {
             $(".list-note-box").html(view);
 

@@ -113,13 +113,7 @@ $("#coinRouletteModal").on('show.bs.modal', function (event) {
 });
 
 $('#coinRouletteModal').on('hide.bs.modal', function (event) {
-  $.ajax({
-      url: '/coin_main',
-      type: 'GET',
-      success: function(view) {
-        $('body').html(view);
-      }
-  });
+  location.reload();
 });
 
 
