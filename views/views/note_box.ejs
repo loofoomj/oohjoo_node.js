@@ -1,0 +1,71 @@
+<% if(isWrite==1) {%>
+  <div class="list-note-div contain-box-div">
+    <div class="user-note-name-box">
+      <div class="user-note-name">
+        <span><%=user_id%></span>
+      </div>
+      <div class="delete-btn-box">
+        <input type="button" class="delete-btn upper-btn note_box_btn" data-noteid="<%=user_id%>" data-notedate="<%=reg_date%>" value="삭제"/>
+      </div>
+    </div>
+    <div class="user-note-date">
+      <span><%=reg_date%></span>
+    </div>
+    <div class="user-note-content">
+      <span id="msg"><%- content %></span>
+    </div>
+  </div>
+<% } else {%>
+  <% for(var i=0;i<notes.length;i++) {%>
+    <div class="list-note-div contain-box-div">
+      <div class="user-note-name-box">
+        <div class="user-note-name">
+          <span><%=notes[i].note_id%></span>
+        </div>
+        <div class="delete-btn-box">
+          <input type="button" class="delete-btn upper-btn note_box_btn" data-noteid="<%=notes[i].note_id%>" data-notedate="<%=notes[i].note_date%>" value="삭제"/>
+        </div>
+      </div>
+      <div class="user-note-date">
+        <span><%=notes[i].note_date%></span>
+      </div>
+      <div class="user-note-content">
+        <span id="msg"><%- notes[i].content_text %></span>
+      </div>
+
+    </div>
+  <% } %>
+<% } %>
+
+
+<script>
+$('body').find('.scroll-idx').data('notelen',<%=notes.length%>);
+console.log(<%=notes.length%>);
+
+$('.delete-btn.note_box_btn').click(function(){
+  var btn = $(this);
+  var note_id = btn.data("noteid");
+  var notedate = btn.data("notedate");
+  if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+    $.ajax({
+      url: '/delete_note',
+      type: 'POST',
+      data: {note_id:note_id, notedate:notedate},
+      success: function(view) {
+
+        $.ajax({
+          url: '/view_note',
+          type: 'POST',
+          success: function(view) {
+            $(".list-note-box").html(view);
+
+          }
+        });
+      }
+    });
+  }else{   //취소
+      return;
+  }
+});
+
+</script>

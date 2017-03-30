@@ -1,0 +1,402 @@
+
+<% if(user_id=='admin') { %>
+<div class="admin-modal-div">
+  <div class="user-info-box contain-box-div">
+    <div class="user-info-name">
+      <span><%=joonew.user_id%></span>
+    </div>
+    <div class="user-info-name">
+      <span><%=joonew.homework%></span>
+    </div>
+    <div class="user-info-stock">
+      <table style="width: 100%;">
+        <tr>
+          <td>
+            <span>보유 Stamp</span>
+          </td>
+          <td>
+            <span>보유 Coin</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="user-stamp-coin stamp-point" data-joonewstamp="<%=joonew.stamp%>">
+              <i class="material-icons" style="margin-right: 5px;color: #FF5E88;">&#xE1AD;</i>
+              <span style="font-size: 20px;"><%=joonew.stamp%></span>
+            </div>
+          </td>
+          <td>
+            <div class="user-stamp-coin coin-point" data-joonewcoin="<%=joonew.coin%>">
+              <i class="material-icons" style="margin-right: 5px;color: #FF5E88;">&#xE263;</i>
+              <span style="font-size: 20px;"><%=joonew.coin%></span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="contain-box-div" style="margin-bottom: 15px;padding:15px;">
+  <span>오늘의 과제</span>
+  <div style="display: flex;display: -webkit-flex;margin-bottom: 15px;">
+    <input type="text" class="homework-change-text" style="flex: 3;"/>
+    <input type="button" style="flex: 1;" class="homework-change-btn" value="과제 내기"/>
+  </div>
+  <span>Stamp 차감</span>
+  <div style="display: flex;display: -webkit-flex;">
+    <input type="text" class="stamp-minus-text" style="flex: 3;"/>
+  </div>
+  <div style="display: flex;display: -webkit-flex;">
+    <input type="date" class="stamp-minus-cal" style="flex: 3;"/>
+    <input type="button" style="flex: 1;" class="stamp-minus-btn" value="stamp 차감"/>
+  </div>
+</div>
+<% } %>
+<div class="calendar-div-box contain-box-div" style="margin-bottom: 15px;padding:15px;">
+  <div class="cal1"></div>
+</div>
+<div class="admin-modal-div">
+  <span class="homework-box-title">과제 목록</span>
+  <div class="today-mission-box">
+  </div>
+</div>
+
+<script>
+
+function changeMonthInt(thismonth) {
+    var isMonth = 0;
+    if(thismonth=='January'){
+      isMonth = 1;
+    } else if(thismonth=='February'){
+      isMonth = 2;
+    } else if(thismonth=='March'){
+      isMonth = 3;
+    } else if(thismonth=='April'){
+      isMonth = 4;
+    } else if(thismonth=='May'){
+      isMonth = 5;
+    } else if(thismonth=='June'){
+      isMonth = 6;
+    } else if(thismonth=='July'){
+      isMonth = 7;
+    } else if(thismonth=='August'){
+      isMonth = 8;
+    } else if(thismonth=='September'){
+      isMonth = 9;
+    } else if(thismonth=='October'){
+      isMonth = 10;
+    } else if(thismonth=='November'){
+      isMonth = 11;
+    } else if(thismonth=='December'){
+      isMonth = 12;
+    }
+
+    return isMonth;
+}
+
+
+// Call this from the developer console and you can control both instances
+var calendars = {};
+
+    // Assuming you've got the appropriate language files,
+    // clndr will respect whatever moment's language is set to.
+    // moment.locale('ru');
+
+    // Here's some magic to make sure the dates are happening this month.
+    var thisMonth = moment().format('YYYY-MM');
+    // Events to load into calendar
+    var eventArray = [
+        {
+            // title: 'Multi-Day Event',
+            // endDate: thisMonth + '-14',
+            // startDate: thisMonth + '-10'
+        }
+        // , {
+        //     endDate: thisMonth + '-23',
+        //     startDate: thisMonth + '-21',
+        //     title: 'Another Multi-Day Event'
+        // }, {
+        //     date: thisMonth + '-27',
+        //     title: 'Single Day Event'
+        // }
+    ];
+
+    // The order of the click handlers is predictable. Direct click action
+    // callbacks come first: click, nextMonth, previousMonth, nextYear,
+    // previousYear, nextInterval, previousInterval, or today. Then
+    // onMonthChange (if the month changed), inIntervalChange if the interval
+    // has changed, and finally onYearChange (if the year changed).
+    calendars.clndr1 = $('.cal1').clndr({
+        events: eventArray,
+        clickEvents: {
+            click: function (target) {
+                console.log('Cal-1 clicked: ', target);
+            },
+            today: function () {
+                console.log('Cal-1 today');
+            },
+            nextMonth: function () {
+                var thismonth = $('.clndr-next-button').data('nextmonth');
+                var isMonth = changeMonthInt(thismonth);
+
+                var routeData = <%- JSON.stringify(checkedHomework) %>
+                var date_td = $('.clndr-table').find('td');
+                $.each(date_td, function(){
+              		var date_unix = $(this).data('thisdate');
+                  date = new Date(date_unix);
+                  var date_year = date.getFullYear();
+                  if((date.getMonth()+1)<10){
+                    var date_month = '0' + (date.getMonth()+1);
+                  } else {
+                    var date_month = (date.getMonth()+1);
+                  }
+                  if((date.getDate())<10){
+                    var date_day = '0' + date.getDate();
+                  } else {
+                    var date_day = date.getDate();
+                  }
+                  var datetime = date_year + '-' + date_month + '-' + date_day;
+                  if(isMonth==(date.getMonth()+1)) {
+                    for(var i=0;i<routeData.length;i++){
+                      if(routeData[i].isCreateDate.split(' ')[0] == datetime){
+                        if(routeData[i].stamp_change > 0){
+                          var date_class = '.complete-'+date_unix;
+                          date_td.find(date_class).css('display','block');
+                        } else {
+                          var date_class = '.incomplete-'+date_unix;
+                          date_td.find(date_class).css('display','block');
+                        }
+                      }
+                    }
+                  }
+              	});
+
+                $.ajax({
+                    url: '/view_homework_box',
+                    type: 'POST',
+                    data: {month:isMonth},
+                    success: function(view) {
+                        $("#adminModal").find(".today-mission-box").html(view);
+                    }
+                });
+            },
+            previousMonth: function () {
+                var thismonth = $('.clndr-previous-button').data('prevmonth');
+                var isMonth = changeMonthInt(thismonth);
+
+                var routeData = <%- JSON.stringify(checkedHomework) %>
+                var date_td = $('.clndr-table').find('td');
+                $.each(date_td, function(){
+              		var date_unix = $(this).data('thisdate');
+                  date = new Date(date_unix);
+                  var date_year = date.getFullYear();
+                  if((date.getMonth()+1)<10){
+                    var date_month = '0' + (date.getMonth()+1);
+                  } else {
+                    var date_month = (date.getMonth()+1);
+                  }
+                  if((date.getDate())<10){
+                    var date_day = '0' + date.getDate();
+                  } else {
+                    var date_day = date.getDate();
+                  }
+                  var datetime = date_year + '-' + date_month + '-' + date_day;
+                  if(isMonth==(date.getMonth()+1)) {
+                    for(var i=0;i<routeData.length;i++){
+                      if(routeData[i].isCreateDate.split(' ')[0] == datetime){
+                        if(routeData[i].stamp_change > 0){
+                          var date_class = '.complete-'+date_unix;
+                          date_td.find(date_class).css('display','block');
+                        } else {
+                          var date_class = '.incomplete-'+date_unix;
+                          date_td.find(date_class).css('display','block');
+                        }
+                      }
+                    }
+                  }
+              	});
+
+
+                $.ajax({
+                    url: '/view_homework_box',
+                    type: 'POST',
+                    data: {month:isMonth},
+                    success: function(view) {
+                        $("#adminModal").find(".today-mission-box").html(view);
+                    }
+                });
+            },
+            onMonthChange: function () {
+                console.log('Cal-1 month changed');
+            },
+            nextYear: function () {
+                console.log('Cal-1 next year');
+            },
+            previousYear: function () {
+                console.log('Cal-1 previous year');
+            },
+            onYearChange: function () {
+                console.log('Cal-1 year changed');
+            },
+            nextInterval: function () {
+                console.log('Cal-1 next interval');
+            },
+            previousInterval: function () {
+                console.log('Cal-1 previous interval');
+            },
+            onIntervalChange: function () {
+                console.log('Cal-1 interval changed');
+            }
+        },
+        multiDayEvents: {
+            singleDay: 'date',
+            endDate: 'endDate',
+            startDate: 'startDate'
+        },
+        showAdjacentMonths: true,
+        adjacentDaysChangeMonth: false
+    });
+
+
+    // Bind all clndrs to the left and right arrow keys
+    $(document).keydown( function(e) {
+        // Left arrow
+        if (e.keyCode == 37) {
+            calendars.clndr1.back();
+        }
+
+        // Right arrow
+        if (e.keyCode == 39) {
+            calendars.clndr1.forward();
+        }
+    });
+
+    $('.homework-change-btn').click(function() {
+        $(this).addClass('disabled-btn');
+        var modal = $("#adminModal");
+        var content = $('.homework-change-text').val();
+        var date = new Date();
+        var month = date.getMonth()+1;
+        var user_id = 'admin';
+        if (content == "") {
+            alert('내용을 입력해야대!');
+            $('.homework-change-text').focus();
+        } else {
+            $.ajax({
+                url: '/homework-change',
+                type: 'POST',
+                data: {
+                    content: content
+                },
+                success: function(view) {
+
+                  $.ajax({
+                      url: '/view_homework',
+                      type: 'POST',
+                      data: {user_id:user_id},
+                      success: function(view) {
+                          modal.find(".modal-body").html(view);
+                          $.ajax({
+                              url: '/view_homework_box',
+                              type: 'POST',
+                              data: {month:month},
+                              success: function(view) {
+                                  modal.find(".today-mission-box").html(view);
+                              }
+                          });
+
+                      }
+                  });
+                }
+            });
+        }
+        $(this).removeClass('disabled-btn');
+    });
+
+
+    $('.stamp-minus-btn').click(function() {
+        $(this).addClass('disabled-btn');
+        var isCreateDate = $('.stamp-minus-cal').val();
+        var content = $('.stamp-minus-text').val();
+        var modal = $("#adminModal");
+        var joonewstamp = modal.find('.user-stamp-coin.stamp-point').data('joonewstamp');
+        var date = new Date();
+        var month = date.getMonth()+1;
+        var user_id = 'admin';
+        if (content == "") {
+            alert('사유를 입력하세요');
+            $('.stamp-minus-text').focus();
+        } else if (isCreateDate == ""){
+            alert('날짜를 선택하세요');
+            $('.stamp-minus-cal').focus();
+        } else {
+            $.ajax({
+                url: '/stamp-minus',
+                type: 'POST',
+                data: {
+                    content: content,
+                    isCreateDate:isCreateDate,
+                    joonewstamp:joonewstamp
+                },
+                success: function(view) {
+
+                  $.ajax({
+                      url: '/view_homework',
+                      type: 'POST',
+                      data: {user_id:user_id},
+                      success: function(view) {
+                          $("#adminModal").find(".modal-body").html(view);
+                          $.ajax({
+                              url: '/view_homework_box',
+                              type: 'POST',
+                              data: {month:month},
+                              success: function(view) {
+                                  $("#adminModal").find(".today-mission-box").html(view);
+                              }
+                          });
+
+                      }
+                  });
+                }
+            });
+        }
+        $(this).removeClass('disabled-btn');
+    });
+
+
+
+    var routeData = <%- JSON.stringify(checkedHomework) %>
+    var isDate = new Date();
+    var month = isDate.getMonth()+1;
+    var date_td = $('.clndr-table').find('td');
+    $.each(date_td, function(){
+  		var date_unix = $(this).data('thisdate');
+      date = new Date(date_unix);
+      var date_year = date.getFullYear();
+      if((date.getMonth()+1)<10){
+        var date_month = '0' + (date.getMonth()+1);
+      } else {
+        var date_month = (date.getMonth()+1);
+      }
+      if((date.getDate())<10){
+        var date_day = '0' + date.getDate();
+      } else {
+        var date_day = date.getDate();
+      }
+      var datetime = date_year + '-' + date_month + '-' + date_day;
+      if(month==(date.getMonth()+1)) {
+        for(var i=0;i<routeData.length;i++){
+          if(routeData[i].isCreateDate.split(' ')[0] == datetime){
+            if(routeData[i].stamp_change > 0){
+              var date_class = '.complete-'+date_unix;
+              date_td.find(date_class).css('display','block');
+            } else {
+              var date_class = '.incomplete-'+date_unix;
+              date_td.find(date_class).css('display','block');
+            }
+          }
+        }
+      }
+  	});
+
+</script>

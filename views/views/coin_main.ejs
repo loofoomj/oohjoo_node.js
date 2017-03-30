@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <% include ./common/head.ejs %>
+</head>
+
+<body>
+    <div class="main-container">
+      <div class="coin-store-top-div" OnClick="location.href='/main'">
+        <i class="material-icons" style="vertical-align:middle;font-size: 20px;
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);">&#xE037;</i>
+        <span>메인으로</span>
+      </div>
+        <div class="container">
+          <div class="stamp-change-div"
+                data-userstamp="<%- JSON.parse(JSON.stringify(user))[0].stamp %>"
+                data-userid="<%- JSON.parse(JSON.stringify(user))[0].user_id %>">
+            <div class="stamp-change-text-box">
+              <span>5 Stamp </span><i class="material-icons" style="vertical-align: middle;">&#xE5C8;</i>
+              <span> 1 Coin</span><br />
+              <span style="font-size: 12px;">Stamp를 Coin으로 교환하기</span>
+            </div>
+            <div class="stamp-change-number-box">
+              <%- JSON.parse(JSON.stringify(user))[0].stamp %>
+            </div>
+          </div>
+          <div class="coin-change-div">
+            <div class="coin-change-text-box">
+              <span> 현재 보유 코인 </span>
+            </div>
+            <div class="coin-change-number-box">
+              <%- JSON.parse(JSON.stringify(user))[0].coin %>
+            </div>
+          </div>
+          <div class="coin-change-div" data-toggle="modal" data-target="#coinGiftModal">
+            <div class="coin-change-text-box">
+              <span> 경품 당첨 내역 </span>
+            </div>
+          </div>
+          <div class="roulette-contain-div">
+            <div style="font-size: 20px;margin-bottom:20px;font-weight:bold;">
+              룰렛 돌리기
+            </div>
+            <div class="roulette-btn-div">
+              <div class="roulette-btn one-coin-btn" data-toggle="modal" data-target="#coinRouletteModal" data-type="one">
+                <span style="font-size: 35px;">1</span>Coin
+              </div>
+              <div class="roulette-btn five-coin-btn" data-toggle="modal" data-target="#coinRouletteModal" data-type="five">
+                <span style="font-size: 35px;">5</span>Coin
+              </div>
+              <div class="roulette-btn ten-coin-btn" data-toggle="modal" data-target="#coinRouletteModal" data-type="ten">
+                <span style="font-size: 35px;">10</span>Coin
+              </div>
+            </div>
+          </div>
+          <div style="padding: 15px;font-size: 13px;background-color: #ffffff;border-radius: 10px;">
+            <span style="font-size:20px;">Coin 상점 이용 방법!</span><br />
+            <br />
+            - 5 Stamp 는 1 Coin 으로 교환 가능합니다.<br />
+            <br />
+            - 경품 코너는 1 Coin / 5 Coin / 10 Coin 으로 구분됩니다.<br />
+            <br />
+            - 당첨 경품은 보보에게서 수령 가능합니다.<br />
+            (적정 금액의 현물로 수령가능하며, 현금으로의 교환은 불가합니다.)<br />
+            <br />
+            - Stamp와 Coin 정책은 사정에 따라 언제든지 변경 가능합니다.<br />
+          </div>
+        </div>
+    </div>
+    <% include ./modal.ejs %>
+    <% include ./common/footer.ejs %>
+
+<script>
+
+$('.stamp-change-div').click(function(){
+  var btn = $(this);
+  var userstamp = btn.data("userstamp");
+  var userId = btn.data("userid");
+  if(userstamp<5) {
+    alert('Stamp를 더 모으세요!');
+    return;
+  } else {
+    if (confirm("Stamp를 교환할래요?") == true){    //확인
+      $.ajax({
+        url: '/stamp_to_coin',
+        type: 'POST',
+        data: {userId:userId},
+        success: function(view) {
+          document.location.reload();
+        }
+      });
+      return;
+    }else{   //취소
+      return;
+    }
+  }
+});
+
+$("#coinRouletteModal").on('show.bs.modal', function (event) {
+  var btn = $(event.relatedTarget);
+  var type = btn.data('type');
+  var modal = $(this);
+  $.ajax({
+      url: '/coin_roulette',
+      type: 'POST',
+      data: {type:type},
+      success: function(view) {
+          modal.find(".modal-body").html(view);
+      }
+  });
+});
+
+$('#coinRouletteModal').on('hide.bs.modal', function (event) {
+  location.reload();
+});
+
+
+$("#coinGiftModal").on('show.bs.modal', function (event) {
+  var btn = $(event.relatedTarget);
+  var modal = $(this);
+  $.ajax({
+      url: '/coin_gift_list',
+      type: 'POST',
+      success: function(view) {
+          modal.find(".modal-body").html(view);
+
+      }
+  });
+});
+
+
+
+</script>
+</body>
+</html>

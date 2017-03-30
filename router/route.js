@@ -90,8 +90,9 @@ module.exports = function(app, fs, passport, upload)
      });
 
      app.post('/view_note',function(req,res){
+       var idx = req.body.idx;
        var db = mysql.createConnection(db_config);
-       var sql = 'SELECT * FROM `note` order by note_idx DESC';
+       var sql = 'SELECT * FROM `note` ORDER BY note_idx DESC LIMIT '+idx+', 5';
        db.query(sql, function(err,rows){
          if(err){
            console.error('mysql connection error');
